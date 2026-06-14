@@ -1,11 +1,4 @@
-{
-  "name": "line-welcome-bot",
-  "version": "1.0.0",
-  "dependencies": {
-    "@line/bot-sdk": "^9.0.0",
-    "express": "^4.18.2"
-  }
-}const express = require("express");
+const express = require("express");
 const line = require("@line/bot-sdk");
 
 const config = {
@@ -14,26 +7,19 @@ const config = {
 };
 
 const client = new line.Client(config);
-
 const app = express();
 
 app.post(
   "/webhook",
   line.middleware(config),
   async (req, res) => {
-
     const events = req.body.events;
 
     for (const event of events) {
-
       if (event.type === "memberJoined") {
-
         await client.replyMessage(event.replyToken, {
           type: "text",
-          text:
-            "🎉 Welcome to the INFOCHAT bulletin for Marvel Contest of Champions related information and infographics. 
-This chat is READ ONLY! 
-Please DO NOT Post in this chat unless you have been given permission."
+          text: "🎉 Welcome to the INFOCHAT bulletin for Marvel Contest of Champions related information and infographics.\n\nThis chat is READ ONLY!\n\nPlease DO NOT post in this chat unless you have been given permission."
         });
       }
     }
